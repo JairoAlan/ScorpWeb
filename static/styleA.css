@@ -1,0 +1,90 @@
+/* Colores */
+:root{
+    --Morado: #4B299D;
+    --MoradoClaro: #F2DFF7;
+    --Blanco: #FFFFFF;
+    --Gris: #F0F0F0;
+    --Negro: #000000;
+}
+/* Accesos rapidos */
+body{
+    background-color: var(--Morado);
+}
+
+/* Diseño base */
+.contenedor{
+    background-color: var(--Blanco);
+    margin: 1rem 1rem 1rem 1rem;
+    /* width: 83rem;
+    height: 36.5rem; */
+    box-shadow: 0 0 20px 2px var(--Gris);
+    border-radius: 7px;
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr;
+}
+.contenedorDos{
+    display: grid;
+    grid-template-rows: 0.5fr 2.5fr;
+}
+.contenedorTres{
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+}
+.contenedorGraficas{
+    display: grid;
+    grid-template-rows: 1fr 1.5fr 1fr;
+    margin: 0.5rem;
+}
+.contenedorGraficasDos{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.imagen{
+    /* background-color: var(--MoradoClaro); */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 1rem;
+    border-radius: 7px;
+    margin: 1rem 0rem 0.5rem 1rem;
+}
+.logo{
+    height: 5rem;
+    width: 5rem;
+}
+.tabla{
+    background-color: var(--Morado);
+    border-radius: 7px;
+    margin: 0.5rem 0rem 0.5rem 1rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 0.2rem;
+}
+.tabla_tit{
+    background-color: var(--Blanco);
+    text-align: center;
+    color: var(--Morado);
+    border-radius: 3px;
+    margin: 1.5px;
+}
+.tabla_campo{
+    background-color: var(--MoradoClaro);
+    border-radius: 3px;
+    margin: 1.5px;
+    padding-left: 0.5rem;
+}
+.gráfica{
+    background-color: var(--Gris);
+    margin: 0.5rem;
+    border-radius: 7px;
+
+}
+.lata{
+    background-color: var(--Gris);
+    border-radius: 7px;
+    margin: 1rem 1rem 1rem 0rem;
+}
+.mapa{
+    background-color: var(--Gris);
+    margin: 0.5rem 0rem 1rem 1rem;
+    border-radius: 7px;
+}

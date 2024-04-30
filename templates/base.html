@@ -1,0 +1,87 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'styleA.css' %}">
+    <link rel="stylesheet" href="{% static 'Normalize.css' %}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+    <title>Real Time</title>
+</head>
+<body>
+
+    <div class="contenedor">
+        <div class="contenedorDos">
+            <div class="imagen">
+                <img class="logo" src="{% static 'Img/lia.png' %}">
+                <img class="logo" src="{% static 'Img/upte.png' %}">
+                <img class="logo" src="{% static 'Img/upt.png' %}">
+                <img class="logo" src="{% static "Img/image_16.png" %}">
+            </div>
+            <div class="mapa" id = "map" style="width=500px height=540px">
+                
+            </div>
+        </div> <!-- Fin contenedor dos -->
+        <div class="contenedorGraficas"> 
+            <div class="contenedorGraficasDos">
+                <div class="gráfica">
+                    {% comment %} Grafica de altitud {% endcomment %}
+                    <canvas id="myChart"></canvas>
+                </div>
+                <div class="gráfica">
+                    {% comment %} Grafica de temperatura {% endcomment %}
+                    <canvas id="temp"></canvas>
+                </div>
+            </div>
+            <div class="contenedorGraficasDos">
+                <div class="tabla">
+                    <div class="tabla_tit">
+                        <p>Altura actual</p>
+                    </div>
+                    <div class="tabla_campo">
+                        <h1 id="app"> {{text}} </h1>
+                    </div>
+                    <div class="tabla_tit">
+                        <p>Altura maxima</p>
+                    </div>
+                    <div class="tabla_campo">
+                        
+                    </div>
+                    <div class="tabla_tit">
+                        <p>Altura desacople</p>
+                    </div>
+                    <div class="tabla_campo">
+                        
+                    </div>
+                </div>
+                <div class="gráfica">
+                    {% comment %} Grafica de velocidad {% endcomment %}
+                    <canvas id="velo"></canvas>
+                </div>
+            </div>
+            <div class="contenedorGraficasDos">
+                <div class="gráfica">
+                    {% comment %} Grafica de aceleracion {% endcomment %}
+                    <canvas id="acel"></canvas>
+                    
+                </div>
+                <div class="gráfica">
+                    {% comment %} Grafica de Presion {% endcomment %}
+                    <canvas id="pres"></canvas>
+
+                </div>
+            </div> <!-- Fin contenedor graficas dos -->
+        </div> <!-- Fin contenedor graficas -->
+        <div class="lata">
+            <p>Aqui va el modelo 3d</p>
+        </div>
+    </div> <!-- Fin contenedor -->
+    
+    <script src="{% static 'main.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzdqPpaND_WEWZauxETqi5AdfhaCDI7yw&callback=initMap" async defer></script>
+</body>
+</html>
