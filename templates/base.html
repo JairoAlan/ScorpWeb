@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'styleA.css' %}">
     <link rel="stylesheet" href="{% static 'Normalize.css' %}">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/107/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
     <title>Real Time</title>
@@ -76,12 +77,39 @@
                 </div>
             </div> <!-- Fin contenedor graficas dos -->
         </div> <!-- Fin contenedor graficas -->
-        <div class="lata">
+        <div class="lata" id="3Dcube" style="width: 29%; height: 29%;">
             <p>Aqui va el modelo 3d</p>
+            
+            <div class="cards">
+                <div class="card">
+                  <p class="card-title">GYROSCOPE</p>
+                  <p><span class="reading">X: <span id="gyroX"></span> rad</span></p>
+                  <p><span class="reading">Y: <span id="gyroY"></span> rad</span></p>
+                  <p><span class="reading">Z: <span id="gyroZ"></span> rad</span></p>
+                </div>
+                <div class="card">
+                  <p class="card-title">ACCELEROMETER</p>
+                  <p><span class="reading">X: <span id="accX"></span> ms<sup>2</sup></span></p>
+                  <p><span class="reading">Y: <span id="accY"></span> ms<sup>2</sup></span></p>
+                  <p><span class="reading">Z: <span id="accZ"></span> ms<sup>2</sup></span></p>
+                </div>
+                <div class="card">
+                  <p class="card-title">TEMPERATURE</p>
+                  <p><span class="reading"><span id="temp"></span> &deg;C</span></p>
+                  <p class="card-title">3D ANIMATION</p>
+                  <button id="reset" onclick="resetPosition(this)">RESET POSITION</button>
+                  <button id="resetX" onclick="resetPosition(this)">X</button>
+                  <button id="resetY" onclick="resetPosition(this)">Y</button>
+                  <button id="resetZ" onclick="resetPosition(this)">Z</button>
+                </div>
+              </div>
+            
+
         </div>
     </div> <!-- Fin contenedor -->
     
     <script src="{% static 'main.js' %}"></script>
+    <script src="{% static '3d.js' %}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzdqPpaND_WEWZauxETqi5AdfhaCDI7yw&callback=initMap" async defer></script>
 </body>
 </html>

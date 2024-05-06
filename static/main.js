@@ -1,7 +1,8 @@
 
 // Grafica de altitud
+// Obtiene el id dpnde se obtendra la grafica
 const ctx = document.getElementById('myChart');
-
+// Crea la grafica y sus parametros
 let graphData =  {
   type: 'line',
   data: {
@@ -29,8 +30,10 @@ socket.onmessage = function(e){
     let djangoData = JSON.parse(e.data);
     console.log(djangoData)
 
+    // imprime la altura en la pagina web pero como numeros, los valores del json
     document.querySelector('#app').innerText = djangoData.value
 
+    // crea un nuevo array con los datos de la grafica y los actualiza
     let newGraphData = graphData.data.datasets[0].data;
     newGraphData.shift();
     newGraphData.push(djangoData.value);
