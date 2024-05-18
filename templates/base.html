@@ -4,37 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="{% static 'styleA.css' %}">
     <link rel="stylesheet" href="{% static 'Normalize.css' %}">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/107/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-
+    
     <title>Real Time</title>
 </head>
 <body>
-
     <div class="contenedor">
         <div class="contenedorDos">
             <div class="imagen">
                 <img class="logo" src="{% static 'Img/lia.png' %}">
                 <img class="logo" src="{% static 'Img/upte.png' %}">
                 <img class="logo" src="{% static 'Img/upt.png' %}">
-                <img class="logo" src="{% static "Img/image_16.png" %}">
+                <img class="logo" src="{% static 'Img/image_16.png' %}">
             </div>
-            <div class="mapa" id = "map" style="width=500px height=540px">
-                
-            </div>
-        </div> <!-- Fin contenedor dos -->
-        <div class="contenedorGraficas"> 
+            <div class="mapa" id="map" style="width=500px; height=200px"></div>
+        </div>
+        <div class="contenedorGraficas">
             <div class="contenedorGraficasDos">
                 <div class="gráfica">
-                    {% comment %} Grafica de altitud {% endcomment %}
                     <canvas id="myChart"></canvas>
                 </div>
                 <div class="gráfica">
-                    {% comment %} Grafica de temperatura {% endcomment %}
                     <canvas id="temp"></canvas>
                 </div>
             </div>
@@ -44,7 +37,7 @@
                         <p>Altura actual</p>
                     </div>
                     <div class="tabla_campo">
-                        <h1 id="app"> {{text}} </h1>
+                        <h1 id="app">{{ text }}</h1>
                     </div>
                     <div class="tabla_tit">
                         <p>Altura maxima</p>
@@ -55,47 +48,38 @@
                     <div class="tabla_tit">
                         <p>Altura desacople</p>
                     </div>
-                    <div class="tabla_campo">
-                        
-                    </div>
+                    <div class="tabla_campo"></div>
                 </div>
-                <div class="gráfica">
-                    {% comment %} Grafica de velocidad {% endcomment %}
+                <div class="gráfica" width="500" height="200">
                     <canvas id="velo"></canvas>
                 </div>
             </div>
             <div class="contenedorGraficasDos">
                 <div class="gráfica">
-                    {% comment %} Grafica de aceleracion {% endcomment %}
                     <canvas id="acel"></canvas>
-                    
                 </div>
                 <div class="gráfica">
-                    {% comment %} Grafica de Presion {% endcomment %}
                     <canvas id="pres"></canvas>
-
                 </div>
-            </div> <!-- Fin contenedor graficas dos -->
-        </div> <!-- Fin contenedor graficas -->
+            </div>
+        </div>
         <div class="lata" id="3Dcube" style="width: 29%; height: 29%;">
-            <p>Aqui va el modelo 3d</p>
-            
             <div class="cards">
                 <div class="card">
-                  <p class="card-title">GYROSCOPE</p>
-                  <p><span class="reading">X: <span id="gyroX"></span> rad</span></p>
-                  <p><span class="reading">Y: <span id="gyroY"></span> rad</span></p>
-                  <p><span class="reading">Z: <span id="gyroZ"></span> rad</span></p>
+                    <h2 class="card-title">GIROSCOPIO</h2>
+                    <p><span class="reading">X: <span id="gyroX">{{ text2 }}</span> rad</span></p>
+                    <p><span class="reading">Y: <span id="gyroY"></span> rad</span></p>
+                    <p><span class="reading">Z: <span id="gyroZ"></span> rad</span></p>
                 </div>
                 <div class="card">
-                  <p class="card-title">ACCELEROMETER</p>
-                  <p><span class="reading">X: <span id="accX"></span> ms<sup>2</sup></span></p>
-                  <p><span class="reading">Y: <span id="accY"></span> ms<sup>2</sup></span></p>
-                  <p><span class="reading">Z: <span id="accZ"></span> ms<sup>2</sup></span></p>
+                    <h2 class="card-title">ACELEROMETRO</h2>
+                    <p><span class="reading">X: <span id="accX"></span> ms<sup>2</sup></span></p>
+                    <p><span class="reading">Y: <span id="accY"></span> ms<sup>2</sup></span></p>
+                    <p><span class="reading">Z: <span id="accZ"></span> ms<sup>2</sup></span></p>
                 </div>
                 <div class="card">
-                  <p class="card-title">TEMPERATURE</p>
-                  <p><span class="reading"><span id="temp"></span> &deg;C</span></p>
+                  <h2 class="card-title">TEMPERATURA</h2>
+                  <p><span class="reading"><span id="tempe"></span> &deg;C</span></p>
                   <p class="card-title">3D ANIMATION</p>
                   <button id="reset" onclick="resetPosition(this)">RESET POSITION</button>
                   <button id="resetX" onclick="resetPosition(this)">X</button>
@@ -103,13 +87,10 @@
                   <button id="resetZ" onclick="resetPosition(this)">Z</button>
                 </div>
               </div>
-            
-
         </div>
-    </div> <!-- Fin contenedor -->
-    
-    <script src="{% static 'main.js' %}"></script>
-    <script src="{% static '3d.js' %}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
+    </div>
+    <script src="{% static 'main.js' %}" async defer></script>
+    <script src="{% static 'pru.js' %}" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzdqPpaND_WEWZauxETqi5AdfhaCDI7yw&callback=initMap" async defer></script>
 </body>
 </html>

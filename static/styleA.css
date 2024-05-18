@@ -76,7 +76,8 @@ body{
     background-color: var(--Gris);
     margin: 0.5rem;
     border-radius: 7px;
-
+    width: 80%;
+    height: 30%; 
 }
 .lata{
     background-color: var(--Gris);

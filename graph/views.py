@@ -5,7 +5,7 @@ import  pandas as pd
 # Create your views here.
 df = pd.read_csv('data_Sat.csv')
 def index(request):
-    return render(request, 'base.html', context={'text': ""})
+    return render(request, 'base.html', context={'text': "",'text2':""})
 
 # def cargar_mapa(mi_latitud, mi_longitud, destino_latitud, destino_longitud, zoom, tamaño):
 #     return render(request, 'base.html', {

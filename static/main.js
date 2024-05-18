@@ -266,3 +266,19 @@ function initMap() {
     infowindow.open(map, markerOrigen);
 }
 
+// let socket6 = new WebSocket("ws://localhost:8000/ws/graph/");
+// socket6.onmessage = function(e){
+//     let djangoData6 = JSON.parse(e.data);
+//     //console.log(djangoData6)
+
+//     // imprime la altura en la pagina web pero como numeros, los valores del json
+//     document.querySelector('#gyroX').innerText = djangoData6.gyX
+//     document.querySelector('#gyroY').innerText = djangoData6.gyY
+//     document.querySelector('#gyroZ').innerText = djangoData6.gyZ
+
+//     document.querySelector('#accX').innerText = djangoData6.acX;
+//     document.querySelector('#accY').innerText = djangoData6.acY;
+//     document.querySelector('#accZ').innerText = djangoData6.acZ;
+
+//     document.querySelector('#tempe').innerText = djangoData6.temperature;
+// }
