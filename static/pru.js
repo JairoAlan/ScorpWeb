@@ -1,4 +1,4 @@
-console.log("HOLAAAAAAAAAAAAAA")
+
 let giroAce = new WebSocket("ws://localhost:8000/ws/graph/");
 
 giroAce.onmessage = function(e){

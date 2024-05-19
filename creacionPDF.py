@@ -30,14 +30,14 @@ def create_pdf_and_plots_from_csv(csv_file, pdf_file):
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('FONTSIZE', (0, 0), (-1, 0), 7), # Tamaño de los encabezados
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 1), (-1, -1), 7),
+        ('FONTSIZE', (0, 1), (-1, -1), 7), # Tamaño de las letras dentro de la tabla
         ('BOTTOMPADDING', (0, 0), (-1, 0), 5),
         ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
         ('GRID', (0, 0), (-1, -1), 1, colors.black),
     ])
     table.setStyle(style)
 
-    # Añadir la tabla a los elementos del PDF
+    # Añade la tabla a los elementos del PDF
     elements.append(table)
 
     # Crear gráficos para cada columna con respecto al tiempo

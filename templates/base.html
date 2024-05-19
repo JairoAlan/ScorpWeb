@@ -84,13 +84,14 @@
                 <div class="card">
                   <h2 class="card-title">TEMPERATURA</h2>
                   <p><span class="reading"><span id="tempe"></span> &deg;C</span></p>
-                  <p class="card-title">3D ANIMATION</p>
+                  <div id="container"></div>
                 </div>
               </div>
         </div>
     </div>
     <script src="{% static 'main.js' %}" async defer></script>
     <script src="{% static 'pru.js' %}" async defer></script>
+    <script src="{% static '3d.js' %}" async defer></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzdqPpaND_WEWZauxETqi5AdfhaCDI7yw&callback=initMap" async defer></script>
 </body>
 </html>
