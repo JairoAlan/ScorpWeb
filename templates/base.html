@@ -19,8 +19,11 @@
                 <img class="logo" src="{% static 'Img/upte.png' %}">
                 <img class="logo" src="{% static 'Img/upt.png' %}">
                 <img class="logo" src="{% static 'Img/image_16.png' %}">
+                
             </div>
-            <div class="mapa" id="map" style="width=500px; height=200px"></div>
+            <div class="mapa" id="map" style="width=500px; height=200px">
+
+            </div>
         </div>
         <div class="contenedorGraficas">
             <div class="contenedorGraficasDos">
@@ -65,9 +68,10 @@
         </div>
         <div class="lata" id="3Dcube" style="width: 29%; height: 29%;">
             <div class="cards">
+                <button id="btnPdf" >GENERAR REPORTE</button>
                 <div class="card">
                     <h2 class="card-title">GIROSCOPIO</h2>
-                    <p><span class="reading">X: <span id="gyroX">{{ text2 }}</span> rad</span></p>
+                    <p><span class="reading">X: <span id="gyroX"></span> rad</span></p>
                     <p><span class="reading">Y: <span id="gyroY"></span> rad</span></p>
                     <p><span class="reading">Z: <span id="gyroZ"></span> rad</span></p>
                 </div>
@@ -81,10 +85,6 @@
                   <h2 class="card-title">TEMPERATURA</h2>
                   <p><span class="reading"><span id="tempe"></span> &deg;C</span></p>
                   <p class="card-title">3D ANIMATION</p>
-                  <button id="reset" onclick="resetPosition(this)">RESET POSITION</button>
-                  <button id="resetX" onclick="resetPosition(this)">X</button>
-                  <button id="resetY" onclick="resetPosition(this)">Y</button>
-                  <button id="resetZ" onclick="resetPosition(this)">Z</button>
                 </div>
               </div>
         </div>

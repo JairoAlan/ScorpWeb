@@ -83,7 +83,18 @@ body{
     background-color: var(--Gris);
     border-radius: 7px;
     margin: 1rem 1rem 1rem 0rem;
+    width: 80%;
+    height: 30%; 
 }
+
+/* Yo agrege esta cosa de card!!! que medio sirve */
+.card{
+    background-color: var(--Gris);
+    border-radius: 7px;
+    margin: 1rem 1rem 1rem 0rem;
+    
+}
+
 .mapa{
     background-color: var(--Gris);
     margin: 0.5rem 0rem 1rem 1rem;
