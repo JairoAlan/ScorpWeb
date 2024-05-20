@@ -102,4 +102,6 @@ body{
 }
 
 /* 3D */
+/* Ancho y altura del conteiner que contiene la escena del cilindro */
+/* Si le cambias los valores tambien en el archivo 3d.js */
 #container { width: 400px; height: 250px; }

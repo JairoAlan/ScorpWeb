@@ -6,7 +6,7 @@ let girosX = 0;
 let girosY = 0;
 let girosZ = 0;
 
-// Tamaño fijo para el renderizador
+// Tamaño fijo para el renderizador del container de 3D!!
 var container = document.getElementById('container');
 var width = 400;  // Ancho fijo
 var height = 250; // Alto fijo
@@ -36,10 +36,10 @@ scene.add(cylinder);
 // Posicionar la cámara
 camera.position.z = 25;
 
+// Se obtiene los mensajes del JSON que vienen del servidor
 ratotacion.onmessage = function(e){
   let djangoDataRotacion = JSON.parse(e.data);
-  // console.log(djangoDataGiroAce)
-
+  
   // guarda los valores en las variables, los valores del json
   girosX = djangoDataRotacion.gyX
   girosY = djangoDataRotacion.gyY
