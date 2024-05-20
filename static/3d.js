@@ -1,7 +1,15 @@
+// Servidor
+let ratotacion = new WebSocket("ws://localhost:8000/ws/graph/");
+
+// Variables para la rotacion, que deben de ser en radianes
+let girosX = 0;
+let girosY = 0;
+let girosZ = 0;
+
 // Tamaño fijo para el renderizador
 var container = document.getElementById('container');
 var width = 400;  // Ancho fijo
-var height = 300; // Alto fijo
+var height = 250; // Alto fijo
 
 // Escena, cámara y renderizador
 var scene = new THREE.Scene();
@@ -26,18 +34,32 @@ var cylinder = new THREE.Mesh(geometry, material);
 scene.add(cylinder);
 
 // Posicionar la cámara
-camera.position.z = 50;
+camera.position.z = 25;
+
+ratotacion.onmessage = function(e){
+  let djangoDataRotacion = JSON.parse(e.data);
+  // console.log(djangoDataGiroAce)
+
+  // guarda los valores en las variables, los valores del json
+  girosX = djangoDataRotacion.gyX
+  girosY = djangoDataRotacion.gyY
+  girosZ = djangoDataRotacion.gyZ
+
+}
 
 // Función de animación
 function animate() {
     requestAnimationFrame(animate);
 
     // Rotar el cilindro
-    cylinder.rotation.x += 0.01;
-    cylinder.rotation.y += 0.01;
+    cylinder.rotation.x = girosX ;
+    cylinder.rotation.y = girosY ;
+    cylinder.rotation.z = girosZ ;
 
     renderer.render(scene, camera);
 }
+
+
 
 // Iniciar la animación
 animate();
