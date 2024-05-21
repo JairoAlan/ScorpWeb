@@ -1,5 +1,54 @@
+// Comunicacion con el servidor
+let localizacion = new WebSocket("ws://localhost:8000/ws/graph/");
+
+let canLocLat = 0;
+let canLocLng = 0;
+let miLocLat = 0;
+let miLocLng = 0;
+
+if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+        position => {
+            miLocLat = position.coords.latitude;
+            miLocLng = position.coords.longitude;
+            console.log("Latitud asignada a miLocLat:", miLocLat);
+            console.log("Longitud asignada a miLocLng:", miLocLng);
+        },
+        error => {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    console.error("El usuario denegó la solicitud de geolocalización.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    console.error("La información de ubicación no está disponible.");
+                    break;
+                case error.TIMEOUT:
+                    console.error("La solicitud para obtener la ubicación ha caducado.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    console.error("Se produjo un error desconocido.");
+                    break;
+            }
+        }
+    );
+} else {
+    console.error("La geolocalización no está soportada por este navegador.");
+}
+
+
+
+localizacion.onmessage = function(e){
+    let djangoDataLocalizacion = JSON.parse(e.data);
+
+    canLocLat = parseFloat(djangoDataLocalizacion.lat);
+    canLocLng = parseFloat(djangoDataLocalizacion.long);
+   
+}
+
+
 // Mapa
 
+// Calcular distancia
 function calcularDistancia(lat1, lon1, lat2, lon2) {
     const R = 6371; // Radio de la Tierra en km
     const dLat = (lat2 - lat1) * Math.PI / 180;
