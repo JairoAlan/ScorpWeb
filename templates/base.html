@@ -21,7 +21,7 @@
                 <img class="logo" src="{% static 'Img/image_16.png' %}">
                 
             </div>
-            <div class="mapa" id="map" style="width=500px; height=200px">
+            <div class="mapa" id="map" style="width=500px; height=200px;">
 
             </div>
         </div>
@@ -40,20 +40,22 @@
                         <p>Altura actual</p>
                     </div>
                     <div class="tabla_campo">
-                        <h1 id="app">{{ text }}</h1>
+                        <h1 id="app"></h1>
                     </div>
                     <div class="tabla_tit">
                         <p>Altura maxima</p>
                     </div>
                     <div class="tabla_campo">
-                        
+                        <h1 id="app2"></h1>
                     </div>
                     <div class="tabla_tit">
                         <p>Altura desacople</p>
                     </div>
-                    <div class="tabla_campo"></div>
+                    <div class="tabla_campo">
+                        <h1 id="app3"></h1>
+                    </div>
                 </div>
-                <div class="gráfica" width="500" height="200">
+                <div class="gráficam" width="500" height="200">
                     <canvas id="velo"></canvas>
                 </div>
             </div>
@@ -67,24 +69,30 @@
             </div>
         </div>
         <div class="lata" id="3Dcube" style="width: 29%; height: 29%;">
-            <div class="cards">
-                <button id="btnPdf" >GENERAR REPORTE</button>
-                <div class="card">
-                    <h2 class="card-title">GIROSCOPIO</h2>
-                    <p><span class="reading">X: <span id="gyroX"></span> rad</span></p>
-                    <p><span class="reading">Y: <span id="gyroY"></span> rad</span></p>
-                    <p><span class="reading">Z: <span id="gyroZ"></span> rad</span></p>
+            <div>
+                <div>
+                    <h2 class="tbtit">GIROSCOPIO</h2>
+                    <div class="tbgir">
+                        <p><span class="reading">X: <span id="gyroX"></span> rad</span></p>
+                        <p><span class="reading">Y: <span id="gyroY"></span> rad</span></p>
+                        <p><span class="reading">Z: <span id="gyroZ"></span> rad</span></p>
+                    </div>
+                    
                 </div>
-                <div class="card">
-                    <h2 class="card-title">ACELEROMETRO</h2>
-                    <p><span class="reading">X: <span id="accX"></span> ms<sup>2</sup></span></p>
-                    <p><span class="reading">Y: <span id="accY"></span> ms<sup>2</sup></span></p>
-                    <p><span class="reading">Z: <span id="accZ"></span> ms<sup>2</sup></span></p>
+                <div>
+                    <h2 class="tbtit">ACELEROMETRO</h2>
+                    <div class="tbgir">
+                        <p><span class="reading">X: <span id="accX"></span> ms<sup>2</sup></span></p>
+                        <p><span class="reading">Y: <span id="accY"></span> ms<sup>2</sup></span></p>
+                        <p><span class="reading">Z: <span id="accZ"></span> ms<sup>2</sup></span></p>
+                    </div>
                 </div>
-                <div class="card">
-                  <h2 class="card-title">TEMPERATURA</h2>
-                  <p><span class="reading"><span id="tempe"></span> &deg;C</span></p>
-                  <div id="container"></div>
+                <div>
+                    <h2 class="tbtit">TEMPERATURA</h2>
+                    <div class="tbtemp">
+                        <p><span class="reading"><span id="tempe"></span> &deg;C</span></p>
+                    </div>
+                    <div id="container"></div>
                 </div>
               </div>
         </div>
