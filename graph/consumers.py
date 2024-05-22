@@ -55,7 +55,8 @@ class GraphConsumer(AsyncWebsocketConsumer):
                 "gyZ": row['GiroZ'],
                 "lat": row['Lat'],
                 "long": row['Long'],
-                "AltGps": row['Altgps']
+                "AltGps": row['Altgps'],
+                "Altmax": row['AltMAX']
             }))
             await sleep(1)
 

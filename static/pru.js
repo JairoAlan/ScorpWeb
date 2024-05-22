@@ -15,4 +15,5 @@ giroAce.onmessage = function(e){
     document.querySelector('#accZ').innerText = djangoDataGiroAce.acZ;
 
     document.querySelector('#tempe').innerText = djangoDataGiroAce.temperature;
+    document.querySelector('#app2').innerText = djangoDataGiroAce.Altmax;
 }
