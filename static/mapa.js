@@ -1,10 +1,10 @@
-// Comunicacion con el servidor
+// Comunicación con el servidor
 let localizacion = new WebSocket("ws://localhost:8000/ws/graph/");
 
 let canLocLat = 0;
 let canLocLng = 0;
-let miLocLat = 0;
-let miLocLng = 0;
+let miLocLat = 0; // Latitud fija especificada
+let miLocLng = 0; // Longitud fija especificada
 
 if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(
@@ -13,6 +13,9 @@ if ("geolocation" in navigator) {
             miLocLng = position.coords.longitude;
             console.log("Latitud asignada a miLocLat:", miLocLat);
             console.log("Longitud asignada a miLocLng:", miLocLng);
+
+            // Llamar a initMap aquí después de obtener la geolocalización
+            initMap();
         },
         error => {
             switch(error.code) {
@@ -35,22 +38,18 @@ if ("geolocation" in navigator) {
     console.error("La geolocalización no está soportada por este navegador.");
 }
 
-
-
 localizacion.onmessage = function(e){
     let djangoDataLocalizacion = JSON.parse(e.data);
 
     canLocLat = parseFloat(djangoDataLocalizacion.lat);
     canLocLng = parseFloat(djangoDataLocalizacion.long);
-   
 }
-
 
 // Mapa
 
 // Calcular distancia
 function calcularDistancia(lat1, lon1, lat2, lon2) {
-    const R = 6371; // Radio de la Tierra en km
+    const R = 6371; // Radio de la Tierra 
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a =
@@ -63,13 +62,10 @@ function calcularDistancia(lat1, lon1, lat2, lon2) {
     return distanciaMts.toFixed(2); // Redondea la distancia a 2 decimales
 }
 
-
-
 function initMap() {
-
     // Configuración inicial del mapa
     var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 20.0766704, lng: -98.3506614},
+        center: {lat: miLocLat, lng: miLocLng},
         zoom: 18
     });
 
@@ -87,7 +83,7 @@ function initMap() {
     });
 
     const markerOrigen = new google.maps.Marker({
-        position: { lat: 20.133534, lng: -98.383157 },
+        position: { lat: miLocLat, lng: miLocLng },
         map: map,
         label: "U",
         icon: {
@@ -99,7 +95,7 @@ function initMap() {
         }
     });
 
-    const distancia = calcularDistancia(20.0766704, -98.3506614, 20.133534, -98.383157);
+    const distancia = calcularDistancia(20.0766704, -98.3506614, miLocLat, miLocLng);
     // Mostrar distancia en el mapa
     const infowindow = new google.maps.InfoWindow({
         content: `Distancia al destino: ${distancia} mts`,
@@ -108,7 +104,7 @@ function initMap() {
     // Crear una línea entre los dos marcadores
     const lineCoordinates = [
         { lat: 20.0766704, lng: -98.3506614 },
-        { lat: 20.133534, lng: -98.383157 }
+        { lat: miLocLat, lng: miLocLng }
     ];
 
     const linea = new google.maps.Polyline({
