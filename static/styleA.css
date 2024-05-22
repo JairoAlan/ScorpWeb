@@ -72,28 +72,7 @@ body{
     margin: 1.5px;
     padding-left: 0.5rem;
 }
-.gráfica{
-    background-color: var(--Gris);
-    margin: 0.5rem;
-    border-radius: 7px;
-    width: 95%;
-    height: 70%; 
-    padding-top: 2.5rem;
-}
-.gráficam{
-    background-color: var(--Gris);
-    margin: 0.5rem;
-    border-radius: 7px;
-    width: 95%;
-    height: 70%; 
-    padding-top: 3rem;
-}
-.lata{
-    
-    margin: 1rem 1rem 1rem 0rem;
-    width: 80%;
-    height: 30%; 
-}
+
 
 /* Yo agrege esta cosa de card!!! que medio sirve */
 .card{
@@ -109,30 +88,6 @@ body{
     border-radius: 7px;
 }
 
-.tbtit{
-    background-color: var(--MoradoClaro);
-    width: 27rem;
-    border-radius: 7px;
-    padding: 0.5rem;
-    text-align: center;
-}
-
-.tbgir{
-    background-color: var(--Gris);
-    border-radius: 7px;
-    width: 27rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    padding: 0.5rem;
-    text-align: center;
-}
-.tbtemp{
-    background-color: var(--Gris);
-    border-radius: 7px;
-    width: 27rem;
-    padding: 0.5rem;
-    text-align: center;
-}
 /* 3D */
 /* Ancho y altura del conteiner que contiene la escena del cilindro */
 /* Si le cambias los valores tambien en el archivo 3d.js */

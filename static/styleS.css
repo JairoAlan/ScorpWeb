@@ -1,101 +1,47 @@
-/* Colores */
-:root{
-    --Morado: #4B299D;
-    --MoradoClaro: #F2DFF7;
-    --Blanco: #FFFFFF;
-    --Gris: #F0F0F0;
-    --Negro: #000000;
-}
-/* Accesos rapidos */
-body{
-    background-color: var(--Morado);
-}
-
-/* Diseño base */
-.contenedor{
-    background-color: var(--Blanco);
-    margin: 1rem 1rem 1rem 1rem;
-    /* width: 83rem;
-    height: 36.5rem; */
-    box-shadow: 0 0 20px 2px var(--Gris);
-    border-radius: 7px;
-}
-.contenedorprinc{
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-}
-.nolata{
-    /* height: 36.5rem; */
-    display: grid;
-    grid-template-rows: 0.5fr 2.5fr;
-}
-.contenedorImgTb{
-    display: grid;
-    grid-template-columns: 0.5fr 2.5fr;
-}
-.contenedorDatos{
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-}
-.contenedorDatos2{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-.graf1{
-    display: grid;
-    grid-template-rows: 2fr 1fr;
-}
-.contenedorGraficas{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: 0.5rem 0rem 0rem 0rem;
-}
-.imagen{
-    /* background-color: var(--MoradoClaro); */
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    padding: 1rem;
-    border-radius: 7px;
-    margin: 1rem 0.5rem 0.5rem 1rem;
-}
-.logo{
-    height: 5rem;
-    width: 5rem;
-}
-.tabla{
-    background-color: var(--Morado);
-    border-radius: 7px;
-    margin: 1rem 1rem 0.5rem 0.5rem;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    padding: 0.2rem;
-}
-.tabla_tit{
-    background-color: var(--Blanco);
-    text-align: center;
-    color: var(--Morado);
-    border-radius: 3px;
-    margin: 1.5px;
-}
-.tabla_campo{
-    background-color: var(--MoradoClaro);
-    border-radius: 3px;
-    margin: 1.5px;
-    padding-left: 0.5rem;
-}
 .gráfica{
     background-color: var(--Gris);
-    border-radius: 7px;
     margin: 0.5rem;
-}
-.lata{
-    background-color: var(--Gris);
     border-radius: 7px;
-    margin: 1rem 1rem 1rem 0.5rem;
+    width: 95%;
+    height: 70%; 
+    padding-top: 2.5rem;
+}
+.gráficam{
+    background-color: var(--Gris);
+    margin: 0.5rem;
+    border-radius: 7px;
+    width: 95%;
+    height: 70%; 
+    padding-top: 3rem;
 }
 
-.mapa{
+.tbtit{
+    background-color: var(--MoradoClaro);
+    width: 24rem;
+    border-radius: 7px;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.tbgir{
     background-color: var(--Gris);
     border-radius: 7px;
-    margin: 0.5rem 0.5rem 0.5rem 1rem;
+    width: 24rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0.5rem;
+    text-align: center;
+}
+.tbtemp{
+    background-color: var(--Gris);
+    border-radius: 7px;
+    width: 24rem;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.lata2{
+    margin: 1rem 1rem 1rem 0rem;
+    width: 80%;
+    height: 30%;
 }

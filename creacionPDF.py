@@ -1,17 +1,44 @@
 import pandas as pd
+import numpy as np
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image
 from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet
 import matplotlib.pyplot as plt
 import tempfile
 
-def create_pdf_and_plots_from_csv(csv_file, pdf_file):
+def clean_data(df):
+    # Reemplazar ceros por numpy.nan
+    df.replace(0, np.nan, inplace=True)
+    
+    # Interpolar valores faltantes
+    df.interpolate(method='linear', inplace=True)
+    
+    # Eliminar filas que aún contienen valores NaN
+    df.dropna(inplace=True)
+    
+    return df
+
+def smooth_data(series, window_size=5):
+    return series.rolling(window=window_size, min_periods=1, center=True).mean()
+
+def create_pdf_and_plots_from_csv(csv_file, pdf_file, window_size=5, title="Reporte de Datos"):
     # Leer el archivo CSV
     df = pd.read_csv(csv_file)
+
+    # Limpiar los datos
+    df = clean_data(df)
 
     # Crear un lienzo para el PDF
     doc = SimpleDocTemplate(pdf_file, pagesize=letter)
     elements = []
+
+    # Crear estilos para el título
+    styles = getSampleStyleSheet()
+    title_style = styles['Title']
+    title_paragraph = Paragraph(title, title_style)
+    elements.append(title_paragraph)
+    elements.append(Spacer(1, 12))  # Agregar un espacio después del título
 
     # Convertir el DataFrame en una lista de listas
     data = [df.columns.tolist()] + df.values.tolist()
@@ -46,8 +73,11 @@ def create_pdf_and_plots_from_csv(csv_file, pdf_file):
 
         for col in df.columns:
             if col != 'Tiempo':
+                # Suavizar los datos
+                smooth_series = smooth_data(df[col], window_size)
+
                 plt.figure(figsize=(8, 6))
-                plt.plot(df['Tiempo'], df[col])
+                plt.plot(df['Tiempo'], smooth_series)
                 plt.title(f"{col} vs Tiempo")
                 plt.xlabel("Tiempo")
                 plt.ylabel(col)
@@ -70,5 +100,10 @@ def create_pdf_and_plots_from_csv(csv_file, pdf_file):
     doc.build(elements)
     print(f"PDF creado exitosamente: {pdf_file}")
 
-# Llamar a la función con el nombre del archivo CSV y el nombre del archivo PDF de salida
-create_pdf_and_plots_from_csv("C:/Users/jairo/Desktop/comunicacion/data_Sat.csv", "datos.pdf")
+if __name__ == "__main__":
+    create_pdf_and_plots_from_csv(
+        csv_file="C:/Users/jairo/Desktop/comunicacion/data_Sat.csv",
+        pdf_file="datos.pdf",
+        window_size=5,
+        title="Reporte de Datos Satelitales Scorpio"
+    )
