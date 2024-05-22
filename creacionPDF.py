@@ -103,7 +103,7 @@ def create_pdf_and_plots_from_csv(csv_file, pdf_file, window_size=5, title="Repo
 if __name__ == "__main__":
     create_pdf_and_plots_from_csv(
         csv_file="C:/Users/jairo/Desktop/comunicacion/data_Sat.csv",
-        pdf_file="datos.pdf",
+        pdf_file="datosScorpio.pdf",
         window_size=5,
         title="Reporte de Datos Satelitales Scorpio"
     )
