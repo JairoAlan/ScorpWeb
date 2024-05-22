@@ -1,18 +1,34 @@
-// Comunicacion con el servidor
+// Comunicación con el servidor
 let localizacion = new WebSocket("ws://localhost:8000/ws/graph/");
 
 let canLocLat = 0;
 let canLocLng = 0;
-let miLocLat = 0;
-let miLocLng = 0;
+let miLocLat = 0; // Latitud inicial
+let miLocLng = 0; // Longitud inicial
+let map, markerDestino, markerOrigen, linea, infowindow; // Declaración de variables globales
+
+function convertToDecimal(coordinate, isLongitude = false) {
+    let degrees, minutes;
+    if (typeof coordinate === 'number') {
+        coordinate = coordinate.toString();
+    }
+    if (isLongitude) {
+        degrees = parseInt(coordinate.slice(0, 3), 10);
+        minutes = parseFloat(coordinate.slice(3));
+    } else {
+        degrees = parseInt(coordinate.slice(0, 2), 10);
+        minutes = parseFloat(coordinate.slice(2));
+    }
+    const decimal = degrees + (minutes / 60);
+    return decimal;
+}
 
 if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(
         position => {
             miLocLat = position.coords.latitude;
             miLocLng = position.coords.longitude;
-            console.log("Latitud asignada a miLocLat:", miLocLat);
-            console.log("Longitud asignada a miLocLng:", miLocLng);
+            initMap();
         },
         error => {
             switch(error.code) {
@@ -35,22 +51,25 @@ if ("geolocation" in navigator) {
     console.error("La geolocalización no está soportada por este navegador.");
 }
 
-
-
-localizacion.onmessage = function(e){
+localizacion.onmessage = function(e) {
     let djangoDataLocalizacion = JSON.parse(e.data);
 
-    canLocLat = parseFloat(djangoDataLocalizacion.lat);
-    canLocLng = parseFloat(djangoDataLocalizacion.long);
-   
+    const locLat = djangoDataLocalizacion.lat;
+    const locLng = djangoDataLocalizacion.long;
+    
+    canLocLat = convertToDecimal(locLat);
+    canLocLng = convertToDecimal(locLng, true);
+
+    console.log("Latitud asignada a canLocLat:", canLocLat);
+    console.log("Longitud asignada a canLocLng:", canLocLng);
+
+    // Si quieres actualizar el mapa con las nuevas coordenadas:
+    actualizarMapa();
 }
-
-
-// Mapa
 
 // Calcular distancia
 function calcularDistancia(lat1, lon1, lat2, lon2) {
-    const R = 6371; // Radio de la Tierra en km
+    const R = 6371; // Radio de la Tierra 
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a =
@@ -59,22 +78,19 @@ function calcularDistancia(lat1, lon1, lat2, lon2) {
         Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distancia = R * c; // Distancia en km
-    const distanciaMts = distancia * 1000 // Distancia en Metros
+    const distanciaMts = distancia * 1000; // Distancia en Metros
     return distanciaMts.toFixed(2); // Redondea la distancia a 2 decimales
 }
 
-
-
 function initMap() {
-
     // Configuración inicial del mapa
-    var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 20.0766704, lng: -98.3506614},
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: miLocLat, lng: miLocLng},
         zoom: 18
     });
 
-    const markerDestino = new google.maps.Marker({
-        position: { lat: 20.0766704, lng: -98.3506614 },
+    markerDestino = new google.maps.Marker({
+        position: { lat: canLocLat, lng: canLocLng },
         map: map,
         label: "D",
         icon: {
@@ -86,8 +102,8 @@ function initMap() {
         }
     });
 
-    const markerOrigen = new google.maps.Marker({
-        position: { lat: 20.133534, lng: -98.383157 },
+    markerOrigen = new google.maps.Marker({
+        position: { lat: miLocLat, lng: miLocLng },
         map: map,
         label: "U",
         icon: {
@@ -99,19 +115,19 @@ function initMap() {
         }
     });
 
-    const distancia = calcularDistancia(20.0766704, -98.3506614, 20.133534, -98.383157);
+    const distancia = calcularDistancia(canLocLat, canLocLng, miLocLat, miLocLng);
     // Mostrar distancia en el mapa
-    const infowindow = new google.maps.InfoWindow({
+    infowindow = new google.maps.InfoWindow({
         content: `Distancia al destino: ${distancia} mts`,
     });
 
     // Crear una línea entre los dos marcadores
     const lineCoordinates = [
-        { lat: 20.0766704, lng: -98.3506614 },
-        { lat: 20.133534, lng: -98.383157 }
+        { lat: canLocLat, lng: canLocLng },
+        { lat: miLocLat, lng: miLocLng }
     ];
 
-    const linea = new google.maps.Polyline({
+    linea = new google.maps.Polyline({
         path: lineCoordinates,
         geodesic: true,
         strokeColor: "#FF0000", // Color de la línea
@@ -122,4 +138,29 @@ function initMap() {
     linea.setMap(map);
 
     infowindow.open(map, markerOrigen);
+}
+
+function actualizarMapa() {
+    // Esta función se puede utilizar para actualizar el mapa si las coordenadas cambian.
+    if (typeof map !== 'undefined') {
+        map.setCenter(new google.maps.LatLng(miLocLat, miLocLng));
+
+        // Actualiza el marcador de destino
+        markerDestino.setPosition(new google.maps.LatLng(canLocLat, canLocLng));
+        
+        // Actualiza el marcador de origen
+        markerOrigen.setPosition(new google.maps.LatLng(miLocLat, miLocLng));
+
+        // Actualiza la línea entre los puntos
+        const lineCoordinates = [
+            { lat: canLocLat, lng: canLocLng },
+            { lat: miLocLat, lng: miLocLng }
+        ];
+        linea.setPath(lineCoordinates);
+
+        // Actualiza la información de la distancia
+        const distancia = calcularDistancia(canLocLat, canLocLng, miLocLat, miLocLng);
+        infowindow.setContent(`Distancia al destino: ${distancia} mts`);
+        infowindow.open(map, markerOrigen);
+    }
 }
