@@ -38,13 +38,13 @@ def create_pdf_and_plots_from_csv(csv_file, pdf_file, window_size=5, title="Repo
     title_style = styles['Title']
     title_paragraph = Paragraph(title, title_style)
     elements.append(title_paragraph)
-    elements.append(Spacer(1, 12))  # Agregar un espacio después del título
+    elements.append(Spacer(1, 12))  # Agrega un espacio después del título
 
     # Convertir el DataFrame en una lista de listas
     data = [df.columns.tolist()] + df.values.tolist()
 
     # Especificar el ancho de las columnas y el alto de las filas
-    col_widths = [40] * len(df.columns)  # Ajusta este valor según tus necesidades
+    col_widths = [35] * len(df.columns)  # Ajusta este valor según tus necesidades
     row_heights = [20] * (len(df) + 1) 
     
     # Crear la tabla
@@ -55,9 +55,9 @@ def create_pdf_and_plots_from_csv(csv_file, pdf_file, window_size=5, title="Repo
         ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-        ('FONTSIZE', (0, 0), (-1, 0), 7), # Tamaño de los encabezados
+        ('FONTSIZE', (0, 0), (-1, 0), 5), # Tamaño de los encabezados
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 1), (-1, -1), 7), # Tamaño de las letras dentro de la tabla
+        ('FONTSIZE', (0, 1), (-1, -1), 5), # Tamaño de las letras dentro de la tabla
         ('BOTTOMPADDING', (0, 0), (-1, 0), 5),
         ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
         ('GRID', (0, 0), (-1, -1), 1, colors.black),
@@ -66,6 +66,8 @@ def create_pdf_and_plots_from_csv(csv_file, pdf_file, window_size=5, title="Repo
 
     # Añade la tabla a los elementos del PDF
     elements.append(table)
+    
+    elements.append(Spacer(1, 12))
 
     # Crear gráficos para cada columna con respecto al tiempo
     if 'Tiempo' in df.columns:

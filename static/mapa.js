@@ -9,19 +9,44 @@ let map, markerDestino, markerOrigen, linea, infowindow; // Declaración de vari
 
 function convertToDecimal(coordinate, isLongitude = false) {
     let degrees, minutes;
+
+    // Asegúrate de que el valor de entrada es una cadena
     if (typeof coordinate === 'number') {
         coordinate = coordinate.toString();
     }
+
+    // Divide la cadena en grados y minutos
     if (isLongitude) {
-        degrees = parseInt(coordinate.slice(0, 4), 10);
-        minutes = parseFloat(coordinate.slice(4));
-        minutes = (-minutes/10);
+        degrees = parseInt(coordinate.slice(0, 3), 10); // 3 dígitos para longitud
+        minutes = parseFloat(coordinate.slice(3));
     } else {
-        degrees = parseInt(coordinate.slice(0, 2), 10);
+        degrees = parseInt(coordinate.slice(0, 2), 10); // 2 dígitos para latitud
         minutes = parseFloat(coordinate.slice(2));
     }
+
+    // Convierte los minutos decimales a grados decimales
     const decimal = degrees + (minutes / 60);
     return decimal;
+}
+
+function procesarCoordenadas(latStr, lngStr) {
+    // Convierte la latitud
+    let lat = convertToDecimal(latStr);
+    
+    // Convierte la longitud
+    let lng = convertToDecimal(lngStr, true);
+
+    // Ajustar longitud dividiéndola por 10
+    lng = lng / 10;
+
+    // Añadir signo negativo para longitudes en el hemisferio occidental
+    lng = -lng;
+
+    // Asegúrate de que las coordenadas son números
+    return {
+        lat: parseFloat(lat.toFixed(6)),
+        lng: parseFloat(lng.toFixed(6))
+    };
 }
 
 if ("geolocation" in navigator) {
@@ -57,16 +82,24 @@ localizacion.onmessage = function(e) {
 
     const locLat = djangoDataLocalizacion.lat;
     const locLng = djangoDataLocalizacion.long;
-    console.log("Aqui", locLat);
-    console.log("Aqui", locLng);
-    canLocLat = convertToDecimal(locLat);
-    canLocLng = convertToDecimal(locLng, true);
+    
+    console.log("locLat:", locLat); // Latitud recibida
+    console.log("locLng:", locLng); // Longitud recibida
 
-    // console.log("Latitud asignada a canLocLat:", canLocLat);
-    // console.log("Longitud asignada a canLocLng:", canLocLng);
+    const resultado = procesarCoordenadas(locLat, locLng);
 
-    // Si quieres actualizar el mapa con las nuevas coordenadas:
-    actualizarMapa();
+    console.log("Latitud:", resultado.lat); // Latitud procesada
+    console.log("Longitud:", resultado.lng); // Longitud procesada
+
+    canLocLat = parseFloat(resultado.lat);
+    canLocLng = parseFloat(resultado.lng);
+
+    // Asegurarse de que las coordenadas sean válidas antes de actualizar el mapa
+    if (!isNaN(canLocLat) && !isNaN(canLocLng)) {
+        actualizarMapa();
+    } else {
+        console.error("Coordenadas inválidas:", canLocLat, canLocLng);
+    }
 }
 
 // Calcular distancia
