@@ -7,44 +7,24 @@ let miLocLat = 0; // Latitud inicial
 let miLocLng = 0; // Longitud inicial
 let map, markerDestino, markerOrigen, linea, infowindow; // Declaración de variables globales
 
-function convertToDecimal(coordinate, isLongitude = false) {
-    let degrees, minutes;
-
-    // Asegúrate de que el valor de entrada es una cadena
-    if (typeof coordinate === 'number') {
-        coordinate = coordinate.toString();
-    }
-
-    // Divide la cadena en grados y minutos
-    if (isLongitude) {
-        degrees = parseInt(coordinate.slice(0, 3), 10); // 3 dígitos para longitud
-        minutes = parseFloat(coordinate.slice(3));
-    } else {
-        degrees = parseInt(coordinate.slice(0, 2), 10); // 2 dígitos para latitud
-        minutes = parseFloat(coordinate.slice(2));
-    }
-
-    // Convierte los minutos decimales a grados decimales
+function convertDMSToDecimal(dms, direction) {
+    const degrees = Math.floor(dms / 100);
+    const minutes = dms - (degrees * 100);
     const decimal = degrees + (minutes / 60);
-    return decimal;
+    return (direction === 'N' || direction === 'E') ? decimal : -decimal;
 }
 
 function procesarCoordenadas(latStr, lngStr) {
-    // Convierte la latitud
-    let lat = convertToDecimal(latStr);
+    // Convierte la latitud (asumiendo que es del hemisferio norte)
+    let lat = convertDMSToDecimal(parseFloat(latStr), 'N');
     
-    // Convierte la longitud
-    let lng = convertToDecimal(lngStr, true);
+    // Convierte la longitud (asumiendo que es del hemisferio occidental)
+    let lng = convertDMSToDecimal(parseFloat(lngStr), 'W');
 
-    // lat = lat + 0.0060510;
-    // lng = lng + 0.2021123;
     // Ajuste específico para longitud para alcanzar el valor deseado
-    lng = lng / 10.0000005; // Ajuste fino
+    lng = lng / 1.0000005; // Ajuste fino
 
-    // Añadir signo negativo para longitudes en el hemisferio occidental
-    lng = -lng;
-
-    // Asegúrate de que las coordenadas son números
+    // Asegúrate de que las coordenadas son números y ajusta a 7 decimales
     return {
         lat: parseFloat(lat.toFixed(7)), // Ajuste a 7 decimales
         lng: parseFloat(lng.toFixed(7)) // Ajuste a 7 decimales
@@ -60,8 +40,11 @@ if ("geolocation" in navigator) {
 
     const watchID = navigator.geolocation.watchPosition(
         position => {
-            miLocLat = position.coords.latitude;
-            miLocLng = position.coords.longitude;
+            // miLocLat = position.coords.latitude;
+            // miLocLng = position.coords.longitude;
+            // 20.1346437,-98.3830119
+            miLocLat = 20.1346437;
+            miLocLng = -98.3830119;
             console.log("miLocLat:", miLocLat); // Latitud recibida
             console.log("miLocLng:", miLocLng); // Longitud recibida
             initMap();
