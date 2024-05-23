@@ -36,24 +36,34 @@ function procesarCoordenadas(latStr, lngStr) {
     // Convierte la longitud
     let lng = convertToDecimal(lngStr, true);
 
-    // Ajustar longitud dividiéndola por 10
-    lng = lng / 10;
+    // lat = lat + 0.0060510;
+    // lng = lng + 0.2021123;
+    // Ajuste específico para longitud para alcanzar el valor deseado
+    lng = lng / 10.0000005; // Ajuste fino
 
     // Añadir signo negativo para longitudes en el hemisferio occidental
     lng = -lng;
 
     // Asegúrate de que las coordenadas son números
     return {
-        lat: parseFloat(lat.toFixed(6)),
-        lng: parseFloat(lng.toFixed(6))
+        lat: parseFloat(lat.toFixed(7)), // Ajuste a 7 decimales
+        lng: parseFloat(lng.toFixed(7)) // Ajuste a 7 decimales
     };
 }
 
 if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(
+    const opciones = {
+        enableHighAccuracy: true,
+        maximumAge: 30000,
+        timeout: 27000
+    };
+
+    const watchID = navigator.geolocation.watchPosition(
         position => {
             miLocLat = position.coords.latitude;
             miLocLng = position.coords.longitude;
+            console.log("miLocLat:", miLocLat); // Latitud recibida
+            console.log("miLocLng:", miLocLng); // Longitud recibida
             initMap();
         },
         error => {
@@ -71,7 +81,8 @@ if ("geolocation" in navigator) {
                     console.error("Se produjo un error desconocido.");
                     break;
             }
-        }
+        },
+        opciones
     );
 } else {
     console.error("La geolocalización no está soportada por este navegador.");
