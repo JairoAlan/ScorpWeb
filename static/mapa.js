@@ -42,7 +42,8 @@ if ("geolocation" in navigator) {
         position => {
             // miLocLat = position.coords.latitude;
             // miLocLng = position.coords.longitude;
-            // 20.1346437,-98.3830119
+            // 20.1346437,-98.3830119 UPT
+            // 19.3264301,-99.1878593 Estadio Roberto
             miLocLat = 20.1346437;
             miLocLng = -98.3830119;
             console.log("miLocLat:", miLocLat); // Latitud recibida
