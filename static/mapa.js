@@ -13,8 +13,9 @@ function convertToDecimal(coordinate, isLongitude = false) {
         coordinate = coordinate.toString();
     }
     if (isLongitude) {
-        degrees = parseInt(coordinate.slice(0, 3), 10);
-        minutes = parseFloat(coordinate.slice(3));
+        degrees = parseInt(coordinate.slice(0, 4), 10);
+        minutes = parseFloat(coordinate.slice(4));
+        minutes = (-minutes/10);
     } else {
         degrees = parseInt(coordinate.slice(0, 2), 10);
         minutes = parseFloat(coordinate.slice(2));
@@ -56,12 +57,13 @@ localizacion.onmessage = function(e) {
 
     const locLat = djangoDataLocalizacion.lat;
     const locLng = djangoDataLocalizacion.long;
-    
+    console.log("Aqui", locLat);
+    console.log("Aqui", locLng);
     canLocLat = convertToDecimal(locLat);
     canLocLng = convertToDecimal(locLng, true);
 
-    console.log("Latitud asignada a canLocLat:", canLocLat);
-    console.log("Longitud asignada a canLocLng:", canLocLng);
+    // console.log("Latitud asignada a canLocLat:", canLocLat);
+    // console.log("Longitud asignada a canLocLng:", canLocLng);
 
     // Si quieres actualizar el mapa con las nuevas coordenadas:
     actualizarMapa();
