@@ -42,10 +42,11 @@ if ("geolocation" in navigator) {
         position => {
             // miLocLat = position.coords.latitude;
             // miLocLng = position.coords.longitude;
-            // 20.1346437,-98.3830119 UPT
-            // 19.3264301,-99.1878593 Estadio Roberto
-            miLocLat = 20.1346437;
-            miLocLng = -98.3830119;
+            // miExact = position.coords.accuracy;
+            // 19.3262972,-99.1861641
+            // 19.3265633,-99.1868126 Estadio Roberto
+            miLocLat = 19.3262972;
+            miLocLng = -99.1861641;
             console.log("miLocLat:", miLocLat); // Latitud recibida
             console.log("miLocLng:", miLocLng); // Longitud recibida
             initMap();
@@ -74,27 +75,28 @@ if ("geolocation" in navigator) {
 
 localizacion.onmessage = function(e) {
     let djangoDataLocalizacion = JSON.parse(e.data);
-
-    const locLat = djangoDataLocalizacion.lat;
-    const locLng = djangoDataLocalizacion.long;
+    // miLocLat = 19.3262972;
+    // miLocLng = -99.1861641;
+    // const locLat = djangoDataLocalizacion.lat;
+    // const locLng = djangoDataLocalizacion.long;
     
-    console.log("locLat:", locLat); // Latitud recibida
-    console.log("locLng:", locLng); // Longitud recibida
+    // console.log("locLat:", locLat); // Latitud recibida
+    // console.log("locLng:", locLng); // Longitud recibida
 
-    const resultado = procesarCoordenadas(locLat, locLng);
+    // const resultado = procesarCoordenadas(locLat, locLng);
 
-    console.log("Latitud:", resultado.lat); // Latitud procesada
-    console.log("Longitud:", resultado.lng); // Longitud procesada
+    // console.log("Latitud:", resultado.lat); // Latitud procesada
+    // console.log("Longitud:", resultado.lng); // Longitud procesada
 
-    canLocLat = parseFloat(resultado.lat);
-    canLocLng = parseFloat(resultado.lng);
+    canLocLat = 19.3265972;
+    canLocLng = -99.1865641;
 
-    // Asegurarse de que las coordenadas sean válidas antes de actualizar el mapa
-    if (!isNaN(canLocLat) && !isNaN(canLocLng)) {
-        actualizarMapa();
-    } else {
-        console.error("Coordenadas inválidas:", canLocLat, canLocLng);
-    }
+    // // Asegurarse de que las coordenadas sean válidas antes de actualizar el mapa
+    // if (!isNaN(canLocLat) && !isNaN(canLocLng)) {
+    //     actualizarMapa();
+    // } else {
+    //     console.error("Coordenadas inválidas:", canLocLat, canLocLng);
+    // }
 }
 
 // Calcular distancia

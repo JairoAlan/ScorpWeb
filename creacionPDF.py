@@ -8,6 +8,9 @@ import matplotlib.pyplot as plt
 import tempfile
 
 def clean_data(df):
+    # Convertir todas las columnas posibles a tipo numérico
+    df = df.apply(pd.to_numeric, errors='coerce')
+    
     # Reemplazar ceros por numpy.nan
     df.replace(0, np.nan, inplace=True)
     
@@ -25,10 +28,10 @@ def smooth_data(series, window_size=5):
 def create_pdf_and_plots_from_csv(csv_file, pdf_file, window_size=5, title="Reporte de Datos"):
     # Leer el archivo CSV
     df = pd.read_csv(csv_file)
-
+    
     # Limpiar los datos
     df = clean_data(df)
-
+    
     # Crear un lienzo para el PDF
     doc = SimpleDocTemplate(pdf_file, pagesize=letter)
     elements = []
